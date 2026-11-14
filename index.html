@@ -328,12 +328,12 @@ var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard adverti
    set src, e.g. src:"images/billboard1.jpg". Leave src empty to show the illustration. */
 /* Hero photo and the two cream-section photos. Upload photos to the repository,
    then set e.g. HERO_IMAGE = "images/hero.jpg". Leave empty to keep the illustration. */
-var HERO_IMAGE = "";
-var TILE_IMAGES = ["", ""];
+var HERO_IMAGE = "4dd6dbc2966d6f01cb94c2131bf6804b.jpg";
+var TILE_IMAGES = ["0fd3280c6450fe8cb0c1c4fde82b6e95.jpg", "234568974867b778eff356187818c326.jpg"];
 var GALLERY = [
-  {src:"", alt:"Illustrative roadside billboard", cap:"Roadside billboard (illustrative)"},
-  {src:"", alt:"Illustrative city billboard", cap:"City centre advertising (illustrative)"},
-  {src:"", alt:"Illustrative large format billboard", cap:"Large-format display (illustrative)"}
+  {src:"312a6df090e7250d66b9c5aee8ddbb82.jpg", alt:"Illustrative roadside billboard", cap:"Roadside billboard (illustrative)"},
+  {src:"4801e8a7e84fe203f3146cc92edac8eb.jpg", alt:"Illustrative city billboard", cap:"City centre advertising (illustrative)"},
+  {src:"e6c015646db509c45fb139e507487919.jpg", alt:"Illustrative large format billboard", cap:"Large-format display (illustrative)"}
 ];
 
 function waLink(text){ return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
@@ -370,7 +370,10 @@ GALLERY.forEach(function(g, i){
 
 /* Hero photo and tiles: use photo if set, otherwise illustration */
 if (HERO_IMAGE) {
-  document.getElementById("heroPhoto").innerHTML = '<img src="' + HERO_IMAGE + '" alt="Illustrative outdoor billboard">';
+  var hp = document.getElementById("heroPhoto"), original = hp.innerHTML;
+  hp.innerHTML = '<img src="' + HERO_IMAGE + '" alt="Illustrative outdoor billboard">';
+  /* If the photo file is missing, fall back to the illustration */
+  hp.querySelector("img").onerror = function(){ hp.innerHTML = original; };
 }
 TILE_IMAGES.forEach(function(src, i){
   var t = document.getElementById("tile" + i), lbl = t.querySelector("span");

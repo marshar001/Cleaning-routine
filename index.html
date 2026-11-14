@@ -393,8 +393,8 @@ var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard adverti
    then list their file names in HERO_SLIDES (hero carousel) and the other lists below. */
 var HERO_SLIDES = [
   {src:"4dd6dbc2966d6f01cb94c2131bf6804b.jpg", alt:"Illustrative outdoor billboard"},
-  {src:"312a6df090e7250d66b9c5aee8ddbb82.jpg", alt:"Illustrative outdoor billboard, second photo"},
-  {src:"e6c015646db509c45fb139e507487919.jpg", alt:"Illustrative outdoor billboard, third photo"}
+  {src:"Screenshot_20261114-115718_1.png", alt:"Illustrative outdoor billboard, second photo"},
+  {src:"Screenshot_20261114-115907_1.png", alt:"Illustrative outdoor billboard, third photo"}
 ];
 var WHY_IMAGE = "4801e8a7e84fe203f3146cc92edac8eb.jpg";
 var BANNER_IMAGE = "e6c015646db509c45fb139e507487919.jpg";
@@ -445,7 +445,7 @@ GALLERY.forEach(function(g, i){
 
 /* Hero photo and tiles: use photo if set, otherwise illustration */
 /* Hero carousel: swipe or drag, with a curved 3D turn between photos */
-(function(){
+function buildCarousel(HERO_SLIDES){
   var stage = document.getElementById("stage"), dotBox = document.getElementById("dots"), n = HERO_SLIDES.length;
   if (!stage || !n) return;
   stage.innerHTML = "";
@@ -513,6 +513,17 @@ GALLERY.forEach(function(g, i){
   });
 
   render(0, false); restart();
+}
+/* Only photos that actually load join the carousel (a missing file is skipped) */
+(function(){
+  var ok = [], left = HERO_SLIDES.length;
+  function done(){ if (--left === 0) { var list = ok.filter(Boolean); if (list.length) buildCarousel(list); } }
+  HERO_SLIDES.forEach(function(sl, i){
+    var t = new Image();
+    t.onload = function(){ ok[i] = sl; done(); };
+    t.onerror = done;
+    t.src = sl.src;
+  });
 })();
 
 TILE_IMAGES.forEach(function(src, i){

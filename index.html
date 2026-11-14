@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROCOM | Outdoor Billboard Advertising in Central City, Abuja</title>
+<meta name="description" content="PROCOM is an outdoor billboard advertising business serving advertisers in Central City, Abuja, Nigeria. Enquire about advertising on WhatsApp.">
+<meta name="theme-color" content="#0B1F3A">
+<meta property="og:title" content="PROCOM | Outdoor Billboard Advertising, Abuja">
+<meta property="og:description" content="Put your business in the spotlight with outdoor billboard advertising in Central City, Abuja.">
+<meta property="og:type" content="website">
+<!-- Favicon: simple gold "P" on navy, embedded so no extra file is needed -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230B1F3A'/%3E%3Ctext x='32' y='46' font-size='40' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23C9A24B'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+/* ===== Design tokens ===== */
+:root{
+  --navy:#0B1F3A; --navy-2:#13294B; --navy-3:#1B3560;
+  --gold:#C9A24B; --gold-2:#E3C171;
+  --white:#fff; --ink:#1A2433; --muted:#5B6678; --line:#E3E7EE; --soft:#F5F7FA;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.6;font-size:1rem}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0}
+h1,h2,h3{font-family:var(--serif);line-height:1.15;color:var(--navy)}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);margin-bottom:.75rem}
+.lead{color:var(--muted);max-width:60ch}
+.head{margin-bottom:2.2rem}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--navy);padding:.6rem 1rem;z-index:100}
+.skip:focus{left:0}
+
+/* ===== Buttons ===== */
+.btn{display:inline-block;padding:.85rem 1.5rem;border-radius:6px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-size:1rem;font-family:var(--sans);transition:background .2s,color .2s,transform .2s}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:var(--gold-2);transform:translateY(-2px)}
+.btn-line{border-color:var(--gold);color:var(--white)}
+.btn-line:hover{background:var(--gold);color:var(--navy)}
+.btn-sm{padding:.55rem 1.05rem;font-size:.92rem}
+
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:50;background:var(--navy);border-bottom:2px solid var(--gold)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:.08em}
+.logo span{color:var(--gold)}
+nav ul{display:flex;gap:1.6rem;list-style:none;align-items:center}
+nav a{color:#DCE3EF;text-decoration:none;font-weight:600;font-size:.95rem}
+nav a:hover{color:var(--gold-2)}
+.menu-btn{display:none;background:none;border:2px solid var(--gold);color:var(--gold);border-radius:6px;padding:.4rem .7rem;font-size:1rem;font-weight:700;cursor:pointer}
+@media(max-width:820px){
+  .menu-btn{display:block}
+  nav{position:absolute;left:0;right:0;top:68px;background:var(--navy-2);display:none;border-bottom:2px solid var(--gold)}
+  nav.open{display:block}
+  nav ul{flex-direction:column;align-items:stretch;gap:0;padding:.5rem 1.25rem 1.2rem}
+  nav li a{display:block;padding:.85rem 0;border-bottom:1px solid var(--navy-3)}
+  nav li:last-child a{border:0;text-align:center;margin-top:.8rem}
+}
+
+/* ===== Hero ===== */
+.hero{background:var(--navy);color:var(--white);padding:3.5rem 0 4rem;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:2.5rem;align-items:center}
+.hero h1{color:var(--white);font-size:clamp(2.1rem,5.2vw,3.5rem);margin-bottom:1rem}
+.hero p{color:#C9D3E4;font-size:1.1rem;max-width:46ch;margin-bottom:1.8rem}
+.hero .actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.board{width:100%;filter:drop-shadow(0 18px 30px rgba(0,0,0,.4))}
+.board .glow{animation:glow 3.2s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.55}to{opacity:1}}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.hero{padding:2.5rem 0 3rem}}
+
+/* ===== About ===== */
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about p+p{margin-top:1rem}
+.facts{border-left:4px solid var(--gold);background:var(--soft);padding:1.5rem 1.6rem;border-radius:0 8px 8px 0}
+.facts h3{font-size:1.2rem;margin-bottom:.8rem}
+.facts li{list-style:none;padding:.45rem 0;border-bottom:1px solid var(--line)}
+.facts li:last-child{border:0}
+.facts b{color:var(--navy)}
+@media(max-width:820px){.about .wrap{grid-template-columns:1fr;gap:1.8rem}}
+
+/* ===== Services ===== */
+.services{background:var(--soft)}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem}
+.card{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:8px;padding:1.5rem}
+.card h3{font-size:1.15rem;margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.96rem}
+.note{margin-top:1.4rem;font-size:.9rem;color:var(--muted)}
+
+/* ===== Why ===== */
+.why{background:var(--navy);color:var(--white)}
+.why h2{color:var(--white)}
+.why .lead{color:#C9D3E4}
+.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.6rem;margin-top:2rem}
+.reasons div{border-top:2px solid var(--gold);padding-top:1rem}
+.reasons h3{color:var(--gold-2);font-size:1.15rem;margin-bottom:.4rem}
+.reasons p{color:#C9D3E4;font-size:.96rem}
+
+/* ===== Gallery ===== */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+.gal figure{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.gal .frame{aspect-ratio:16/10;background:linear-gradient(160deg,var(--navy-2),var(--navy));position:relative}
+.gal img,.gal svg{width:100%;height:100%;object-fit:cover}
+.gal figcaption{padding:.8rem 1rem;font-size:.92rem;color:var(--muted)}
+
+/* ===== Location + Contact ===== */
+.loc{background:var(--soft)}
+.loc .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.contact-list{list-style:none;margin:1.2rem 0 1.5rem}
+.contact-list li{padding:.7rem 0;border-bottom:1px solid var(--line)}
+.contact-list b{display:block;color:var(--navy);font-size:.9rem}
+.contact-list a{text-decoration:none;color:var(--ink);font-weight:600}
+.contact-list a:hover{color:var(--gold)}
+.pin{background:var(--navy);color:var(--white);border-radius:8px;padding:2rem;border-left:4px solid var(--gold)}
+.pin h3{color:var(--gold-2);margin-bottom:.5rem}
+.pin p{color:#C9D3E4}
+@media(max-width:820px){.loc .wrap{grid-template-columns:1fr}}
+
+/* ===== Form ===== */
+.form-box{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:1.6rem;box-shadow:0 8px 24px rgba(11,31,58,.07)}
+label{display:block;font-weight:600;font-size:.92rem;margin:.9rem 0 .3rem;color:var(--navy)}
+input,select,textarea{width:100%;padding:.75rem .85rem;border:1px solid #C4CCD9;border-radius:6px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+.form-box .btn{width:100%;margin-top:1.3rem}
+.hint{font-size:.85rem;color:var(--muted);margin-top:.7rem}
+
+/* ===== Footer ===== */
+footer{background:var(--navy);color:#AEBBD1;padding:2rem 0;text-align:center;font-size:.9rem;border-top:2px solid var(--gold)}
+footer a{color:var(--gold-2)}
+.wa-float{position:fixed;right:1rem;bottom:1rem;z-index:60;background:#25D366;color:#fff;text-decoration:none;font-weight:700;padding:.75rem 1.1rem;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.3);font-size:.95rem}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#home" aria-label="PROCOM home">PRO<span>COM</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="btn btn-gold btn-sm" href="#enquiry">Enquire</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div>
+      <h1>Make Your Brand Impossible to Ignore.</h1>
+      <p>Put your business in the spotlight with outdoor billboard advertising in Central City, Abuja.</p>
+      <div class="actions">
+        <a class="btn btn-gold" id="heroCta" href="#" target="_blank" rel="noopener">Enquire About Advertising</a>
+        <a class="btn btn-line" href="#services">Our Services</a>
+      </div>
+    </div>
+    <!-- Illustrative billboard graphic. Replace with a real photo later (see README note in chat). -->
+    <svg class="board" viewBox="0 0 520 380" role="img" aria-label="Illustration of a lit outdoor billboard on two supports">
+      <rect x="0" y="330" width="520" height="50" fill="#0A1930"/>
+      <rect x="150" y="215" width="16" height="120" fill="#2B4373"/>
+      <rect x="354" y="215" width="16" height="120" fill="#2B4373"/>
+      <rect x="40" y="40" width="440" height="190" rx="8" fill="#1B3560" stroke="#C9A24B" stroke-width="5"/>
+      <rect x="58" y="58" width="404" height="154" fill="#0B1F3A"/>
+      <g class="glow" fill="#E3C171"><circle cx="110" cy="30" r="6"/><circle cx="260" cy="30" r="6"/><circle cx="410" cy="30" r="6"/></g>
+      <text x="260" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="38" font-weight="700" fill="#fff">YOUR BRAND</text>
+      <text x="260" y="170" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#C9A24B">HERE</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div>
+      <h2>About PROCOM</h2>
+      <p>PROCOM is an outdoor billboard advertising business serving advertisers who want strong brand visibility in Abuja.</p>
+      <p>We help businesses put their message in front of people in the city, where it can be seen day after day. If you have a product, service or announcement to promote, we are ready to talk through your advertising needs.</p>
+    </div>
+    <div class="facts">
+      <h3>At a glance</h3>
+      <ul>
+        <li><b>Business:</b> Outdoor billboard advertising</li>
+        <li><b>Location:</b> Central City, Abuja, Nigeria</li>
+        <li><b>Enquiries:</b> WhatsApp or phone</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="head"><h2>Our Services</h2><p class="lead">Outdoor advertising options for businesses that want to be seen.</p></div>
+    <div class="grid4">
+      <article class="card"><h3>Outdoor Billboard Advertising</h3><p>Large-format outdoor advertising that keeps your message visible to people moving around the city.</p></article>
+      <article class="card"><h3>Brand Visibility Campaigns</h3><p>Build recognition for your brand with a bold, consistent presence outdoors.</p></article>
+      <article class="card"><h3>Advertising Placement Enquiries</h3><p>Ask about placing your advertisement. Contact us to discuss what is available for your campaign.</p></article>
+      <article class="card"><h3>Business and Product Promotion</h3><p>Promote a new business, product, offer or event to a wider audience.</p></article>
+    </div>
+    <p class="note">Billboard sizes, formats and locations are discussed and confirmed directly with PROCOM when you enquire.</p>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE ===== -->
+<section class="why" id="why">
+  <div class="wrap">
+    <h2>Why Choose PROCOM</h2>
+    <p class="lead">Outdoor advertising works because people cannot scroll past it.</p>
+    <div class="reasons">
+      <div><h3>Constant visibility</h3><p>A billboard is on display around the clock, so your message is always there for passers-by.</p></div>
+      <div><h3>Stronger brand awareness</h3><p>Seeing your name again and again helps people remember and recognise your business.</p></div>
+      <div><h3>Reach potential customers</h3><p>Place your advertising where people in the city are already going about their day.</p></div>
+      <div><h3>Easy to start</h3><p>Send a WhatsApp message and tell us what you want to promote. We respond to discuss the details.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head"><h2>Gallery</h2><p class="lead">Illustrative examples of outdoor advertising. These are demonstration images, not confirmed PROCOM installations.</p></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<!-- ===== LOCATION + CONTACT ===== -->
+<section class="loc" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Contact PROCOM</h2>
+      <p class="lead">Talk to us about your advertising. The quickest way is WhatsApp.</p>
+      <ul class="contact-list">
+        <li><b>Telephone / WhatsApp</b><a href="tel:+2347042337300">+234 704 233 7300</a></li>
+        <li><b>WhatsApp</b><a id="waLink" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a></li>
+        <li><b>Instagram</b><a href="https://www.instagram.com/procom_advertising_nig_ltd/" target="_blank" rel="noopener">@procom_advertising_nig_ltd</a></li>
+      </ul>
+      <a class="btn btn-gold" id="contactCta" href="#" target="_blank" rel="noopener">Enquire About Advertising</a>
+    </div>
+    <div class="pin">
+      <h3>Location</h3>
+      <p>Central City, Abuja, Nigeria</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ENQUIRY FORM ===== -->
+<section id="enquiry">
+  <div class="wrap" style="max-width:680px">
+    <div class="head"><h2>Advertising Enquiry</h2><p class="lead">Fill in the form and it opens WhatsApp with your details ready to send.</p></div>
+    <form class="form-box" id="form">
+      <label for="name">Your name</label>
+      <input id="name" name="name" autocomplete="name" required>
+      <label for="biz">Business name</label>
+      <input id="biz" name="biz" autocomplete="organization" required>
+      <label for="phone">Phone number</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+      <label for="type">Type of advertising enquiry</label>
+      <select id="type" name="type" required>
+        <option value="">Select one</option>
+        <option>Outdoor billboard advertising</option>
+        <option>Brand visibility campaign</option>
+        <option>Advertising placement enquiry</option>
+        <option>Business or product promotion</option>
+        <option>Other</option>
+      </select>
+      <label for="msg">Message</label>
+      <textarea id="msg" name="msg" required></textarea>
+      <button class="btn btn-gold" type="submit">Send on WhatsApp</button>
+      <p class="hint">Your message is sent through WhatsApp. Nothing is stored on this website.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; <span id="yr"></span> PROCOM. Outdoor billboard advertising, Central City, Abuja, Nigeria.</p>
+    <p style="margin-top:.4rem"><a href="tel:+2347042337300">+234 704 233 7300</a> &middot; <a href="https://www.instagram.com/procom_advertising_nig_ltd/" target="_blank" rel="noopener">Instagram</a></p>
+  </div>
+</footer>
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
+
+<script>
+/* ===== Settings: edit here ===== */
+var WA_NUMBER = "2347042337300";
+var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard advertising.";
+
+/* Gallery items. To use a real photo, upload it to the repository and
+   set src, e.g. src:"images/billboard1.jpg". Leave src empty to show the illustration. */
+var GALLERY = [
+  {src:"", alt:"Illustrative roadside billboard", cap:"Roadside billboard (illustrative)"},
+  {src:"", alt:"Illustrative city billboard", cap:"City centre advertising (illustrative)"},
+  {src:"", alt:"Illustrative large format billboard", cap:"Large-format display (illustrative)"}
+];
+
+function waLink(text){ return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
+
+/* WhatsApp links */
+["heroCta","contactCta","waLink","waFloat"].forEach(function(id){
+  document.getElementById(id).href = waLink(DEFAULT_MSG);
+});
+
+/* Gallery */
+var gal = document.getElementById("gal");
+GALLERY.forEach(function(g, i){
+  var fig = document.createElement("figure");
+  var frame = document.createElement("div");
+  frame.className = "frame";
+  if (g.src) {
+    var img = document.createElement("img");
+    img.src = g.src; img.alt = g.alt; img.loading = "lazy";
+    frame.appendChild(img);
+  } else {
+    var tilt = [0, 1.5, -1.5][i % 3];
+    frame.innerHTML = '<svg viewBox="0 0 320 200" role="img" aria-label="' + g.alt + '" preserveAspectRatio="xMidYMid slice">' +
+      '<rect width="320" height="200" fill="#13294B"/><rect y="165" width="320" height="35" fill="#0A1930"/>' +
+      '<rect x="95" y="105" width="9" height="65" fill="#2B4373"/><rect x="216" y="105" width="9" height="65" fill="#2B4373"/>' +
+      '<g transform="rotate(' + tilt + ' 160 70)"><rect x="40" y="22" width="240" height="90" rx="5" fill="#1B3560" stroke="#C9A24B" stroke-width="3"/>' +
+      '<rect x="49" y="31" width="222" height="72" fill="#0B1F3A"/>' +
+      '<text x="160" y="68" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#fff">YOUR BRAND</text>' +
+      '<text x="160" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#C9A24B">HERE</text></g></svg>';
+  }
+  var cap = document.createElement("figcaption");
+  cap.textContent = g.cap;
+  fig.appendChild(frame); fig.appendChild(cap); gal.appendChild(fig);
+});
+
+/* Enquiry form opens WhatsApp */
+document.getElementById("form").addEventListener("submit", function(e){
+  e.preventDefault();
+  var f = e.target;
+  var text = "Hello PROCOM, I would like to make an advertising enquiry.\n\n" +
+    "Name: " + f.name.value.trim() + "\n" +
+    "Business: " + f.biz.value.trim() + "\n" +
+    "Phone: " + f.phone.value.trim() + "\n" +
+    "Enquiry type: " + f.type.value + "\n" +
+    "Message: " + f.msg.value.trim();
+  window.open(waLink(text), "_blank", "noopener");
+});
+
+/* Mobile menu */
+var btn = document.getElementById("menuBtn"), nav = document.getElementById("nav");
+btn.addEventListener("click", function(){
+  var open = nav.classList.toggle("open");
+  btn.setAttribute("aria-expanded", open);
+});
+nav.addEventListener("click", function(e){
+  if (e.target.tagName === "A") { nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); }
+});
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

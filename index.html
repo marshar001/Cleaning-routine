@@ -73,6 +73,17 @@ nav a:hover{color:var(--gold-2)}
 @keyframes glow{from{opacity:.55}to{opacity:1}}
 @media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.hero{padding:2.5rem 0 3rem}}
 
+/* ===== Video-style additions ===== */
+.pill{display:inline-block;border:1px solid #2E7D5B;color:#5FD39C;background:rgba(46,125,91,.18);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:999px;margin-bottom:1rem}
+.photo{border-radius:14px;overflow:hidden;border:1px solid var(--navy-3);aspect-ratio:16/11;background:var(--navy-2)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo svg{width:100%;height:100%}
+.intro{background:#F3EEE4}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+.tile{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:var(--navy)}
+.tile img,.tile svg{width:100%;height:100%;object-fit:cover}
+.tile span{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .8rem;color:#fff;font-weight:700;font-family:var(--serif);background:linear-gradient(transparent,rgba(11,31,58,.9))}
+@media(max-width:820px){.hero .photo{order:-1}.tiles{gap:.7rem}}
 /* ===== About ===== */
 .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
 .about p+p{margin-top:1rem}
@@ -161,15 +172,16 @@ footer a{color:var(--gold-2)}
 <section class="hero" id="home">
   <div class="wrap">
     <div>
-      <h1>Make Your Brand Impossible to Ignore.</h1>
+      <span class="pill">Outdoor Advertising</span>
+      <h1>Your Brand Deserves to Be Seen.</h1>
       <p>Put your business in the spotlight with outdoor billboard advertising in Central City, Abuja.</p>
       <div class="actions">
-        <a class="btn btn-gold" id="heroCta" href="#" target="_blank" rel="noopener">Enquire About Advertising</a>
+        <a class="btn btn-gold" id="heroCta" href="#" target="_blank" rel="noopener">Book Advertising Space</a>
         <a class="btn btn-line" href="#services">Our Services</a>
       </div>
     </div>
     <!-- Illustrative billboard graphic. Replace with a real photo later (see README note in chat). -->
-    <svg class="board" viewBox="0 0 520 380" role="img" aria-label="Illustration of a lit outdoor billboard on two supports">
+    <div class="photo" id="heroPhoto"><svg class="board" viewBox="0 0 520 380" role="img" aria-label="Illustration of a lit outdoor billboard on two supports">
       <rect x="0" y="330" width="520" height="50" fill="#0A1930"/>
       <rect x="150" y="215" width="16" height="120" fill="#2B4373"/>
       <rect x="354" y="215" width="16" height="120" fill="#2B4373"/>
@@ -178,7 +190,20 @@ footer a{color:var(--gold-2)}
       <g class="glow" fill="#E3C171"><circle cx="110" cy="30" r="6"/><circle cx="260" cy="30" r="6"/><circle cx="410" cy="30" r="6"/></g>
       <text x="260" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="38" font-weight="700" fill="#fff">YOUR BRAND</text>
       <text x="260" y="170" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#C9A24B">HERE</text>
-    </svg>
+    </svg></div>
+  </div>
+</section>
+
+<!-- ===== INTRO (cream) =====-->
+<section class="intro" id="intro">
+  <div class="wrap">
+    <h2>Make Your Brand Impossible to Ignore.</h2>
+    <p class="lead">Connect your business with people across Central City, Abuja through outdoor billboard advertising.</p>
+    <div class="tiles">
+      <div class="tile" id="tile0"><span>High-Impact Displays</span></div>
+      <div class="tile" id="tile1"><span>Strategic Locations</span></div>
+    </div>
+    <p class="note">Illustrative images only. Billboard availability is confirmed when you enquire.</p>
   </div>
 </section>
 
@@ -301,6 +326,10 @@ var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard adverti
 
 /* Gallery items. To use a real photo, upload it to the repository and
    set src, e.g. src:"images/billboard1.jpg". Leave src empty to show the illustration. */
+/* Hero photo and the two cream-section photos. Upload photos to the repository,
+   then set e.g. HERO_IMAGE = "images/hero.jpg". Leave empty to keep the illustration. */
+var HERO_IMAGE = "";
+var TILE_IMAGES = ["", ""];
 var GALLERY = [
   {src:"", alt:"Illustrative roadside billboard", cap:"Roadside billboard (illustrative)"},
   {src:"", alt:"Illustrative city billboard", cap:"City centre advertising (illustrative)"},
@@ -337,6 +366,18 @@ GALLERY.forEach(function(g, i){
   var cap = document.createElement("figcaption");
   cap.textContent = g.cap;
   fig.appendChild(frame); fig.appendChild(cap); gal.appendChild(fig);
+});
+
+/* Hero photo and tiles: use photo if set, otherwise illustration */
+if (HERO_IMAGE) {
+  document.getElementById("heroPhoto").innerHTML = '<img src="' + HERO_IMAGE + '" alt="Illustrative outdoor billboard">';
+}
+TILE_IMAGES.forEach(function(src, i){
+  var t = document.getElementById("tile" + i), lbl = t.querySelector("span");
+  t.insertAdjacentHTML("afterbegin", src
+    ? '<img src="' + src + '" alt="Illustrative outdoor advertising" loading="lazy">'
+    : gal.querySelectorAll(".frame")[i].innerHTML);
+  t.appendChild(lbl);
 });
 
 /* Enquiry form opens WhatsApp */

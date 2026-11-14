@@ -87,7 +87,7 @@ nav a:hover{color:#9C7A2B}
 .tile{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:var(--navy)}
 .tile img,.tile svg{width:100%;height:100%;object-fit:cover}
 .tile span{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .8rem;color:#fff;font-weight:700;font-family:var(--serif);background:linear-gradient(transparent,rgba(11,31,58,.9))}
-@media(max-width:820px){.hero .photo{order:-1}.tiles{gap:.7rem}}
+@media(max-width:820px){.hero .hero-visual{order:-1}.tiles{gap:.7rem}}
 /* ===== Eyebrow, Why list, FAQ, banner ===== */
 .eyebrow{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
 .why .wrap2{display:grid;grid-template-columns:1fr 1.1fr;gap:2.2rem;align-items:center;margin-top:2rem}
@@ -112,6 +112,17 @@ nav a:hover{color:#9C7A2B}
 .banner .wrap{position:relative}
 .banner h2{color:#fff;max-width:20ch;margin:0 auto .8rem}
 .banner p{color:#DCE3EF;max-width:50ch;margin:0 auto 1.6rem}
+/* ===== Hero carousel (3D curved swipe) ===== */
+.hero-visual{min-width:0}
+.stage{position:relative;aspect-ratio:16/11;perspective:900px;overflow:hidden;border-radius:14px;background:var(--navy-2);border:1px solid var(--navy-3);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.stage:active{cursor:grabbing}
+.stage>svg{width:100%;height:100%}
+.slide{position:absolute;top:0;bottom:0;left:10%;width:80%;border-radius:12px;overflow:hidden;background:var(--navy-3);will-change:transform;box-shadow:0 14px 30px rgba(0,0,0,.45)}
+.slide img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.slide.missing{background:linear-gradient(135deg,var(--navy-3),var(--navy))}
+.dots{display:flex;justify-content:center;gap:.5rem;margin-top:.9rem}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;background:#3B5584;cursor:pointer;padding:0;transition:width .3s,background .3s}
+.dots button[aria-current="true"]{background:var(--gold);width:26px;border-radius:6px}
 /* ===== About ===== */
 .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
 .about p+p{margin-top:1rem}
@@ -209,7 +220,7 @@ footer a{color:var(--gold-2)}
       </div>
     </div>
     <!-- Illustrative billboard graphic. Replace with a real photo later (see README note in chat). -->
-    <div class="photo" id="heroPhoto"><svg class="board" viewBox="0 0 520 380" role="img" aria-label="Illustration of a lit outdoor billboard on two supports">
+    <div class="hero-visual"><div class="stage" id="stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Billboard photos. Swipe or use the arrow keys."><svg class="board" viewBox="0 0 520 380" role="img" aria-label="Illustration of a lit outdoor billboard on two supports">
       <rect x="0" y="330" width="520" height="50" fill="#0A1930"/>
       <rect x="150" y="215" width="16" height="120" fill="#2B4373"/>
       <rect x="354" y="215" width="16" height="120" fill="#2B4373"/>
@@ -218,7 +229,7 @@ footer a{color:var(--gold-2)}
       <g class="glow" fill="#E3C171"><circle cx="110" cy="30" r="6"/><circle cx="260" cy="30" r="6"/><circle cx="410" cy="30" r="6"/></g>
       <text x="260" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="38" font-weight="700" fill="#fff">YOUR BRAND</text>
       <text x="260" y="170" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#C9A24B">HERE</text>
-    </svg></div>
+    </svg></div><div class="dots" id="dots"></div></div>
   </div>
 </section>
 
@@ -379,8 +390,12 @@ var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard adverti
 /* Gallery items. To use a real photo, upload it to the repository and
    set src, e.g. src:"images/billboard1.jpg". Leave src empty to show the illustration. */
 /* Hero photo and the two cream-section photos. Upload photos to the repository,
-   then set e.g. HERO_IMAGE = "images/hero.jpg". Leave empty to keep the illustration. */
-var HERO_IMAGE = "4dd6dbc2966d6f01cb94c2131bf6804b.jpg";
+   then list their file names in HERO_SLIDES (hero carousel) and the other lists below. */
+var HERO_SLIDES = [
+  {src:"4dd6dbc2966d6f01cb94c2131bf6804b.jpg", alt:"Illustrative outdoor billboard"},
+  {src:"312a6df090e7250d66b9c5aee8ddbb82.jpg", alt:"Illustrative outdoor billboard, second photo"},
+  {src:"e6c015646db509c45fb139e507487919.jpg", alt:"Illustrative outdoor billboard, third photo"}
+];
 var WHY_IMAGE = "4801e8a7e84fe203f3146cc92edac8eb.jpg";
 var BANNER_IMAGE = "e6c015646db509c45fb139e507487919.jpg";
 var WHY_ITEMS = [
@@ -429,12 +444,77 @@ GALLERY.forEach(function(g, i){
 });
 
 /* Hero photo and tiles: use photo if set, otherwise illustration */
-if (HERO_IMAGE) {
-  var hp = document.getElementById("heroPhoto"), original = hp.innerHTML;
-  hp.innerHTML = '<img src="' + HERO_IMAGE + '" alt="Illustrative outdoor billboard">';
-  /* If the photo file is missing, fall back to the illustration */
-  hp.querySelector("img").onerror = function(){ hp.innerHTML = original; };
-}
+/* Hero carousel: swipe or drag, with a curved 3D turn between photos */
+(function(){
+  var stage = document.getElementById("stage"), dotBox = document.getElementById("dots"), n = HERO_SLIDES.length;
+  if (!stage || !n) return;
+  stage.innerHTML = "";
+  var slides = [], dots = [], prevD = [], cur = 0, dx = 0, drag = false, startX = 0, timer = null;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  HERO_SLIDES.forEach(function(sl, i){
+    var d = document.createElement("div"); d.className = "slide";
+    var img = document.createElement("img");
+    img.src = sl.src; img.alt = sl.alt; img.draggable = false;
+    img.onerror = function(){ d.classList.add("missing"); };
+    d.appendChild(img); stage.appendChild(d); slides.push(d);
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-label", "Show photo " + (i + 1));
+    b.addEventListener("click", function(){
+      var idx = ((cur % n) + n) % n, delta = i - idx;
+      delta -= n * Math.round(delta / n);
+      cur += delta; render(cur, true); restart();
+    });
+    dotBox.appendChild(b); dots.push(b);
+  });
+
+  /* Position every slide from one continuous value p (the photo currently in front) */
+  function render(p, anim){
+    slides.forEach(function(el, i){
+      var d = i - p; d -= n * Math.round(d / n);
+      var a = Math.min(Math.abs(d), 1.4);
+      var jump = prevD[i] !== undefined && Math.abs(d - prevD[i]) > 1.2;
+      el.style.transition = (anim && !jump) ? "transform .55s cubic-bezier(.22,.8,.3,1), opacity .55s" : "none";
+      el.style.transform = "translateX(" + (d * 62) + "%) translateZ(" + (-a * 170) + "px) rotateY(" + (-d * 38) + "deg) scale(" + (1 - 0.06 * a) + ")";
+      el.style.opacity = Math.max(0.25, 1 - 0.5 * a);
+      el.style.zIndex = String(Math.round(10 - a * 5));
+      el.setAttribute("aria-hidden", Math.abs(d) > 0.5 ? "true" : "false");
+      prevD[i] = d;
+    });
+    var idx = ((Math.round(p) % n) + n) % n;
+    dots.forEach(function(b, i){ b.setAttribute("aria-current", i === idx ? "true" : "false"); });
+  }
+  function go(step){ cur += step; render(cur, true); }
+  function stop(){ clearInterval(timer); timer = null; }
+  function restart(){ stop(); if (!reduce && n > 1) timer = setInterval(function(){ go(1); }, 5000); }
+
+  stage.addEventListener("pointerdown", function(e){
+    drag = true; startX = e.clientX; dx = 0; stop();
+    try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  stage.addEventListener("pointermove", function(e){
+    if (!drag) return;
+    var w = stage.offsetWidth;
+    dx = Math.max(-w, Math.min(w, e.clientX - startX));
+    render(cur - dx / w, false);
+  });
+  function end(){
+    if (!drag) return;
+    drag = false;
+    var w = stage.offsetWidth;
+    if (Math.abs(dx) > w * 0.12) cur += (dx < 0 ? 1 : -1);
+    dx = 0; render(cur, true); restart();
+  }
+  stage.addEventListener("pointerup", end);
+  stage.addEventListener("pointercancel", end);
+  stage.addEventListener("keydown", function(e){
+    if (e.key === "ArrowRight") { go(1); restart(); }
+    if (e.key === "ArrowLeft") { go(-1); restart(); }
+  });
+
+  render(0, false); restart();
+})();
+
 TILE_IMAGES.forEach(function(src, i){
   var t = document.getElementById("tile" + i), lbl = t.querySelector("span");
   t.insertAdjacentHTML("afterbegin", src

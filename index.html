@@ -383,6 +383,13 @@ footer a{color:var(--gold-2)}
 <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
 
 <script>
+/* Always open at the top: ignore a remembered scroll position or a saved #section in the address */
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+window.addEventListener("load", function(){
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  window.scrollTo(0, 0);
+});
+
 /* ===== Settings: edit here ===== */
 var WA_NUMBER = "2347042337300";
 var DEFAULT_MSG = "Hello PROCOM, I would like to enquire about billboard advertising.";
